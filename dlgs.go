@@ -1,9 +1,9 @@
 // Package dialog provides a simple cross-platform common dialog API.
 // Eg. to prompt the user with a yes/no dialog:
 //
-//     if dialog.MsgDlg("%s", "Do you want to continue?").YesNo() {
-//         // user pressed Yes
-//     }
+//	if dialog.MsgDlg("%s", "Do you want to continue?").YesNo() {
+//	    // user pressed Yes
+//	}
 //
 // The general usage pattern is to call one of the toplevel *Dlg functions
 // which return a *Builder structure. From here you can optionally call
@@ -32,6 +32,7 @@ type Dlg struct {
 type MsgBuilder struct {
 	Dlg
 	Msg string
+	Top bool
 }
 
 // Message initialises a MsgBuilder with the provided message.
@@ -42,6 +43,12 @@ func Message(format string, args ...interface{}) *MsgBuilder {
 // Title specifies what the title of the message dialog will be.
 func (b *MsgBuilder) Title(title string) *MsgBuilder {
 	b.Dlg.Title = title
+	return b
+}
+
+// OnTop brings the dialog to top
+func (b *MsgBuilder) OnTop() *MsgBuilder {
+	b.Top = true
 	return b
 }
 
